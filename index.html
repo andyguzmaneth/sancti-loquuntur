@@ -53,9 +53,7 @@
       box-sizing: border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Cormorant Garamond', 'Georgia', serif;
@@ -70,27 +68,17 @@
     body::before {
       content: '';
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       pointer-events: none;
       z-index: 1000;
-      background-image:
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 2px,
-          rgba(139, 115, 85, 0.02) 2px,
-          rgba(139, 115, 85, 0.02) 4px
-        );
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139,115,85,0.02) 2px, rgba(139,115,85,0.02) 4px);
     }
 
-    /* ===================== THEME & AMBIENT TOGGLES ===================== */
+    /* ===================== CONTROLS ===================== */
     .controls {
       position: fixed;
-      top: 1.5rem;
-      right: 1.5rem;
+      top: 1.5rem; right: 1.5rem;
       z-index: 999;
       display: flex;
       gap: 0.75rem;
@@ -112,27 +100,13 @@
       gap: 0.4rem;
     }
 
-    .control-btn:hover {
-      color: var(--gold);
-      border-color: var(--gold);
-    }
-
-    .control-btn.active {
-      color: var(--gold);
-      border-color: var(--gold);
-    }
-
-    .control-icon {
-      font-size: 0.9rem;
-    }
+    .control-btn:hover { color: var(--gold); border-color: var(--gold); }
 
     /* ===================== CANDLELIGHT CANVAS ===================== */
     #candlelight {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       pointer-events: none;
       z-index: 999;
       opacity: 0;
@@ -140,100 +114,192 @@
       mix-blend-mode: screen;
     }
 
-    [data-theme="vigils"] #candlelight {
-      opacity: 1;
-    }
+    [data-theme="vigils"] #candlelight { opacity: 1; }
 
-    /* ===================== HERO ===================== */
+    /* ===================== HERO — SPLIT LAYOUT ===================== */
     .hero {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
       position: relative;
+      overflow: hidden;
+    }
+
+    /* Fresco background — visible behind hero */
+    .hero-bg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      /* CSS-only baroque fresco suggestion: warm radials mimicking a painted ceiling */
       background:
-        radial-gradient(ellipse at 50% 0%, var(--gold-glow) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 20%, rgba(162, 89, 61, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 30%, rgba(120, 80, 120, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(184, 134, 11, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 0%, var(--gold-glow) 0%, transparent 40%),
         linear-gradient(180deg, var(--parchment) 0%, var(--parchment-dark) 100%);
+      /* REPLACE with actual fresco image when available:
+         background: url('images/fresco-bg.jpg') center/cover; */
     }
 
     .hero::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 4px;
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      z-index: 2;
     }
 
-    .cross-ornament {
-      font-size: 2.5rem;
+    .hero-text {
+      position: relative;
+      z-index: 2;
+      padding: 4rem 3rem 4rem 8vw;
+      max-width: 650px;
+    }
+
+    .hero-text .cross-ornament {
+      font-size: 1.8rem;
       color: var(--gold);
-      margin-bottom: 2rem;
-      letter-spacing: 1.5rem;
-      opacity: 0.7;
+      opacity: 0.6;
+      margin-bottom: 1.5rem;
     }
 
-    .hero h1 {
+    .hero-text h1 {
       font-family: 'Cinzel', serif;
-      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
       font-weight: 400;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.08em;
       color: var(--ink);
-      margin-bottom: 0.5rem;
-      text-transform: uppercase;
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
     }
 
-    .hero .subtitle {
+    .hero-text h1 em {
       font-family: 'IM Fell English', serif;
       font-style: italic;
-      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      color: var(--burgundy);
+    }
+
+    .hero-text .subtitle {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2vw, 1.35rem);
       color: var(--ink-faded);
-      margin-bottom: 3rem;
-      letter-spacing: 0.05em;
+      margin-bottom: 2rem;
+      letter-spacing: 0.03em;
     }
 
-    .hero .tagline {
-      font-size: clamp(1rem, 2vw, 1.25rem);
+    .hero-text .tagline {
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
       color: var(--ink-light);
-      max-width: 600px;
-      line-height: 1.9;
-      margin-bottom: 3rem;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      max-width: 480px;
     }
 
-    .hero .scroll-hint {
-      position: absolute;
-      bottom: 2rem;
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
       font-family: 'Cinzel', serif;
       font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: var(--burgundy-deep);
+      color: var(--parchment);
+      border: 1px solid var(--burgundy-deep);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn-primary:hover { background: var(--burgundy); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: none;
+      color: var(--ink);
+      border: 1px solid var(--parchment-dark);
+      cursor: pointer;
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Hero saint illustration */
+    .hero-saint {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      height: 100%;
+      padding-top: 4rem;
+    }
+
+    .hero-saint-img {
+      max-height: 85vh;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      object-position: bottom center;
+      filter: drop-shadow(0 8px 40px rgba(44, 24, 16, 0.15));
+      /* Fade out at the bottom edge */
+      mask-image: linear-gradient(to bottom, black 75%, transparent 98%);
+      -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 98%);
+    }
+
+    /* Placeholder SVG silhouette until real images are added */
+    .hero-saint-placeholder {
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      opacity: 0.12;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--stone-light);
+      z-index: 2;
       animation: gentle-pulse 3s ease-in-out infinite;
     }
 
-    .hero .scroll-hint::after {
+    .hero-scroll::after {
       content: '';
       display: block;
-      width: 1px;
-      height: 40px;
+      width: 1px; height: 35px;
       background: var(--stone-light);
-      margin: 0.75rem auto 0;
+      margin: 0.6rem auto 0;
       animation: scroll-line 3s ease-in-out infinite;
     }
 
-    @keyframes gentle-pulse {
-      0%, 100% { opacity: 0.4; }
-      50% { opacity: 0.8; }
-    }
-
-    @keyframes scroll-line {
-      0%, 100% { transform: scaleY(0.5); opacity: 0.3; }
-      50% { transform: scaleY(1); opacity: 0.7; }
-    }
+    @keyframes gentle-pulse { 0%,100%{opacity:.4} 50%{opacity:.8} }
+    @keyframes scroll-line { 0%,100%{transform:scaleY(.5);opacity:.3} 50%{transform:scaleY(1);opacity:.7} }
 
     /* ===================== DIVIDERS ===================== */
     .divider {
@@ -248,8 +314,7 @@
       opacity: 0.6;
     }
 
-    .divider::before,
-    .divider::after {
+    .divider::before, .divider::after {
       content: '';
       flex: 1;
       height: 1px;
@@ -292,9 +357,7 @@
       text-indent: 1.5em;
     }
 
-    section p:first-of-type {
-      text-indent: 0;
-    }
+    section p:first-of-type { text-indent: 0; }
 
     section p:first-of-type::first-letter {
       font-family: 'Cinzel', serif;
@@ -322,8 +385,7 @@
       color: var(--gold);
       opacity: 0.3;
       position: absolute;
-      top: 0.5rem;
-      left: 0.8rem;
+      top: 0.5rem; left: 0.8rem;
       line-height: 1;
     }
 
@@ -346,7 +408,7 @@
       text-align: right;
     }
 
-    /* ===================== SAINTS GRID ===================== */
+    /* ===================== SAINTS GRID — WITH IMAGE SUPPORT ===================== */
     .saints-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -357,10 +419,11 @@
     .saint-card {
       background: var(--vellum);
       border: 1px solid var(--parchment-dark);
-      padding: 2rem 1.5rem;
+      padding: 0;
       text-align: center;
       position: relative;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
     }
 
     .saint-card:hover {
@@ -371,18 +434,41 @@
     .saint-card::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 50%;
+      top: 0; left: 50%;
       transform: translateX(-50%);
-      width: 40px;
-      height: 2px;
+      width: 40px; height: 2px;
       background: var(--gold);
+      z-index: 1;
     }
 
-    .saint-card .saint-symbol {
-      font-size: 2rem;
-      margin-bottom: 0.75rem;
-      display: block;
+    .saint-card-img-wrap {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 60%, rgba(184,134,11,0.08) 0%, transparent 70%),
+        var(--parchment-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .saint-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    /* Placeholder when no image yet */
+    .saint-card-img-wrap .placeholder-icon {
+      font-size: 3rem;
+      opacity: 0.25;
+      color: var(--gold);
+    }
+
+    .saint-card-body {
+      padding: 1.5rem;
     }
 
     .saint-card h3 {
@@ -400,7 +486,7 @@
       font-style: italic;
       font-size: 0.85rem;
       color: var(--ink-faded);
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
 
     .saint-card .saint-voice {
@@ -465,13 +551,40 @@
       margin-bottom: 1.5rem;
       padding-bottom: 1.5rem;
       border-bottom: 1px solid rgba(184, 134, 11, 0.1);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
     }
 
-    .demo-msg:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
+    .demo-msg:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .demo-msg-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: var(--parchment-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
+    .demo-msg-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .demo-msg-avatar .avatar-placeholder {
+      font-size: 0.6rem;
+      font-family: 'Cinzel', serif;
+      color: var(--stone);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .demo-msg-content { flex: 1; }
 
     .demo-msg .speaker {
       font-family: 'Cinzel', serif;
@@ -482,9 +595,7 @@
       margin-bottom: 0.5rem;
     }
 
-    .demo-msg .speaker.saint-speaker {
-      color: var(--gold);
-    }
+    .demo-msg .speaker.saint-speaker { color: var(--gold); }
 
     .demo-msg .text {
       font-size: 1.05rem;
@@ -492,9 +603,7 @@
       line-height: 1.8;
     }
 
-    .demo-msg .text em {
-      font-family: 'IM Fell English', serif;
-    }
+    .demo-msg .text em { font-family: 'IM Fell English', serif; }
 
     .demo-msg .text .source-ref {
       font-size: 0.8rem;
@@ -533,28 +642,13 @@
       transition: all 0.3s ease;
     }
 
-    .lectio-step-btn:hover {
-      color: var(--ink-light);
-    }
+    .lectio-step-btn:hover { color: var(--ink-light); }
+    .lectio-step-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
 
-    .lectio-step-btn.active {
-      color: var(--gold);
-      border-bottom-color: var(--gold);
-    }
+    .lectio-panel { display: none; animation: lectio-fade 0.6s ease; }
+    .lectio-panel.active { display: block; }
 
-    .lectio-panel {
-      display: none;
-      animation: lectio-fade 0.6s ease;
-    }
-
-    .lectio-panel.active {
-      display: block;
-    }
-
-    @keyframes lectio-fade {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes lectio-fade { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
     .lectio-panel h3 {
       font-family: 'Cinzel', serif;
@@ -592,10 +686,7 @@
       margin: 0 auto;
     }
 
-    /* Silence timer */
-    .silence-container {
-      margin-top: 2rem;
-    }
+    .silence-container { margin-top: 2rem; }
 
     .silence-btn {
       background: none;
@@ -610,10 +701,7 @@
       transition: all 0.3s ease;
     }
 
-    .silence-btn:hover {
-      background: var(--gold);
-      color: var(--parchment);
-    }
+    .silence-btn:hover { background: var(--gold); color: var(--parchment); }
 
     .silence-timer {
       font-family: 'Cinzel', serif;
@@ -624,15 +712,9 @@
       letter-spacing: 0.1em;
     }
 
-    .silence-timer.active {
-      display: block;
-      animation: timer-pulse 4s ease-in-out infinite;
-    }
+    .silence-timer.active { display: block; animation: timer-pulse 4s ease-in-out infinite; }
 
-    @keyframes timer-pulse {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 1; }
-    }
+    @keyframes timer-pulse { 0%,100%{opacity:.6} 50%{opacity:1} }
 
     /* ===================== TIMELINE ===================== */
     .timeline {
@@ -644,9 +726,7 @@
     .timeline::before {
       content: '';
       position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
+      left: 0; top: 0; bottom: 0;
       width: 1px;
       background: linear-gradient(180deg, transparent, var(--gold), var(--gold), transparent);
     }
@@ -660,8 +740,7 @@
     .timeline-item::before {
       content: '\2720';
       position: absolute;
-      left: -3.6rem;
-      top: 0.2rem;
+      left: -3.6rem; top: 0.2rem;
       color: var(--gold);
       font-size: 0.8rem;
     }
@@ -736,14 +815,8 @@
       transition: border-color 0.3s;
     }
 
-    .email-form input[type="email"]::placeholder {
-      color: var(--stone-light);
-      font-style: italic;
-    }
-
-    .email-form input[type="email"]:focus {
-      border-color: var(--gold);
-    }
+    .email-form input[type="email"]::placeholder { color: var(--stone-light); font-style: italic; }
+    .email-form input[type="email"]:focus { border-color: var(--gold); }
 
     .email-form button {
       padding: 0.9rem 1.8rem;
@@ -755,12 +828,10 @@
       color: var(--parchment);
       border: 1px solid var(--burgundy-deep);
       cursor: pointer;
-      transition: background 0.3s, color 0.3s;
+      transition: background 0.3s;
     }
 
-    .email-form button:hover {
-      background: var(--burgundy);
-    }
+    .email-form button:hover { background: var(--burgundy); }
 
     /* ===================== FOOTER ===================== */
     footer {
@@ -788,45 +859,45 @@
     }
 
     /* ===================== RESPONSIVE ===================== */
-    @media (max-width: 600px) {
-      section {
-        padding: 3.5rem 1.5rem;
-      }
-
-      .saints-grid {
+    @media (max-width: 900px) {
+      .hero {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        min-height: auto;
       }
 
-      .email-form {
-        flex-direction: column;
+      .hero-text {
+        padding: 6rem 2rem 2rem;
+        text-align: center;
+        max-width: 100%;
       }
 
-      .email-form button {
-        padding: 1rem;
+      .hero-cta { justify-content: center; }
+
+      .hero-saint {
+        height: 50vh;
+        padding-top: 0;
       }
 
-      .saint-quote {
-        padding: 1.5rem;
-      }
+      .hero-saint-img { max-height: 50vh; }
+    }
 
-      .demo-conversation {
-        padding: 1.5rem;
-      }
+    @media (max-width: 600px) {
+      section { padding: 3.5rem 1.5rem; }
 
-      .controls {
-        top: 0.75rem;
-        right: 0.75rem;
-      }
+      .saints-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
 
-      .lectio-steps {
-        flex-wrap: wrap;
-      }
+      .saint-card-img-wrap { height: 140px; }
 
-      .lectio-step-btn {
-        font-size: 0.6rem;
-        padding: 0.5rem 0.8rem;
-      }
+      .email-form { flex-direction: column; }
+      .email-form button { padding: 1rem; }
+
+      .saint-quote { padding: 1.5rem; }
+      .demo-conversation { padding: 1.5rem; }
+      .controls { top: 0.75rem; right: 0.75rem; }
+      .lectio-steps { flex-wrap: wrap; }
+      .lectio-step-btn { font-size: 0.6rem; padding: 0.5rem 0.8rem; }
+
+      .demo-msg-avatar { width: 36px; height: 36px; }
     }
 
     /* ===================== ANIMATIONS ===================== */
@@ -836,20 +907,7 @@
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Typewriter for demo */
-    .typewriter .char {
-      opacity: 0;
-      animation: char-appear 0.03s forwards;
-    }
-
-    @keyframes char-appear {
-      to { opacity: 1; }
-    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
@@ -857,29 +915,63 @@
   <!-- ==================== CONTROLS ==================== -->
   <div class="controls">
     <button class="control-btn" id="theme-toggle" title="Toggle Vigils (dark) mode">
-      <span class="control-icon" id="theme-icon">&#x263D;</span>
+      <span id="theme-icon">&#x263D;</span>
       <span>Vigils</span>
     </button>
   </div>
 
-  <!-- ==================== CANDLELIGHT CANVAS ==================== -->
   <canvas id="candlelight"></canvas>
 
-  <!-- ==================== HERO ==================== -->
+  <!-- ==================== HERO — SPLIT LAYOUT ==================== -->
   <header class="hero">
-    <div class="cross-ornament">&#x2720;</div>
-    <h1>Sancti Loquuntur</h1>
-    <p class="subtitle">The Saints Speak</p>
-    <p class="tagline">
-      An artificial intelligence trained on two thousand years of Catholic wisdom.
-      Converse with Augustine, Aquinas, Teresa, and the great minds of the faith
-      &mdash; in their own words, their own voice.
-    </p>
-    <span class="scroll-hint">Descend</span>
+    <div class="hero-bg"></div>
+
+    <div class="hero-text">
+      <div class="cross-ornament">&#x2720;</div>
+      <h1>Two thousand years<br>of <em>wisdom</em>, alive<br>again.</h1>
+      <p class="subtitle">Sancti Loquuntur &mdash; The Saints Speak</p>
+      <p class="tagline">
+        An AI trained on the authentic writings of Catholic saints and mystics.
+        Converse with Augustine, Aquinas, Teresa, and Joan &mdash; in their own words,
+        their own voice, their own fire.
+      </p>
+      <div class="hero-cta">
+        <a href="#cta" class="btn-primary">Join the Waitlist &rarr;</a>
+        <a href="#vision" class="btn-secondary">Learn More</a>
+      </div>
+    </div>
+
+    <div class="hero-saint">
+      <!-- REPLACE: Drop your Midjourney-generated Augustine image here -->
+      <!-- <img src="images/augustine-hero.png" alt="Saint Augustine of Hippo" class="hero-saint-img"> -->
+
+      <!-- Placeholder SVG silhouette -->
+      <svg class="hero-saint-placeholder" viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="robeGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--burgundy)" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="var(--gold)" stop-opacity="0.1"/>
+          </linearGradient>
+        </defs>
+        <!-- Head -->
+        <ellipse cx="200" cy="100" rx="55" ry="65" fill="var(--ink)" opacity="0.06"/>
+        <!-- Halo -->
+        <ellipse cx="200" cy="75" rx="72" ry="72" fill="none" stroke="var(--gold)" stroke-width="2" opacity="0.2"/>
+        <!-- Body / Robe -->
+        <path d="M120,170 Q140,160 200,155 Q260,160 280,170 L310,580 Q260,600 200,600 Q140,600 90,580 Z" fill="url(#robeGrad)"/>
+        <!-- Book -->
+        <rect x="140" y="260" width="100" height="75" rx="4" fill="var(--gold)" opacity="0.12" transform="rotate(-8, 190, 297)"/>
+        <!-- Arms suggestion -->
+        <path d="M130,200 Q120,260 140,300" stroke="var(--ink)" stroke-width="3" fill="none" opacity="0.06"/>
+        <path d="M270,200 Q280,260 260,300" stroke="var(--ink)" stroke-width="3" fill="none" opacity="0.06"/>
+      </svg>
+    </div>
+
+    <span class="hero-scroll">Descend</span>
   </header>
 
   <!-- ==================== VISION ==================== -->
-  <section class="fade-in">
+  <section class="fade-in" id="vision">
     <h2>The Vision</h2>
     <p class="section-latin">Quaerite et invenietis &mdash; Seek and you shall find</p>
 
@@ -947,73 +1039,114 @@
 
     <div class="saints-grid">
       <div class="saint-card">
-        <span class="saint-symbol">&#x1F525;</span>
-        <h3>Augustine</h3>
-        <p class="saint-era">Hippo, 354&ndash;430 AD</p>
-        <p class="saint-voice">Confessional, searching, passionate. The convert who understood the restless heart.</p>
+        <div class="saint-card-img-wrap">
+          <!-- <img src="images/saints/augustine.png" alt="Augustine"> -->
+          <span class="placeholder-icon">&#x1F525;</span>
+        </div>
+        <div class="saint-card-body">
+          <h3>Augustine</h3>
+          <p class="saint-era">Hippo, 354&ndash;430 AD</p>
+          <p class="saint-voice">Confessional, searching, passionate. The convert who understood the restless heart.</p>
+        </div>
       </div>
 
       <div class="saint-card">
-        <span class="saint-symbol">&#x2696;</span>
-        <h3>Thomas Aquinas</h3>
-        <p class="saint-era">Italy, 1225&ndash;1274</p>
-        <p class="saint-voice">Precise, exhaustive, luminous. The Angelic Doctor who married faith and reason.</p>
+        <div class="saint-card-img-wrap">
+          <span class="placeholder-icon">&#x2696;</span>
+        </div>
+        <div class="saint-card-body">
+          <h3>Thomas Aquinas</h3>
+          <p class="saint-era">Italy, 1225&ndash;1274</p>
+          <p class="saint-voice">Precise, exhaustive, luminous. The Angelic Doctor who married faith and reason.</p>
+        </div>
       </div>
 
       <div class="saint-card">
-        <span class="saint-symbol">&#x1F54A;</span>
-        <h3>Bernard of Clairvaux</h3>
-        <p class="saint-era">France, 1090&ndash;1153</p>
-        <p class="saint-voice">Mystical, fiery, poetic. The Doctor of Devotion who preached on the Song of Songs.</p>
+        <div class="saint-card-img-wrap">
+          <span class="placeholder-icon">&#x1F54A;</span>
+        </div>
+        <div class="saint-card-body">
+          <h3>Bernard of Clairvaux</h3>
+          <p class="saint-era">France, 1090&ndash;1153</p>
+          <p class="saint-voice">Mystical, fiery, poetic. The Doctor of Devotion who preached on the Song of Songs.</p>
+        </div>
       </div>
 
       <div class="saint-card">
-        <span class="saint-symbol">&#x2694;</span>
-        <h3>Joan of Arc</h3>
-        <p class="saint-era">France, 1412&ndash;1431</p>
-        <p class="saint-voice">Blunt, defiant, prophetic. Her trial words survive verbatim &mdash; raw and unbroken.</p>
+        <div class="saint-card-img-wrap">
+          <span class="placeholder-icon">&#x2694;</span>
+        </div>
+        <div class="saint-card-body">
+          <h3>Joan of Arc</h3>
+          <p class="saint-era">France, 1412&ndash;1431</p>
+          <p class="saint-voice">Blunt, defiant, prophetic. Her trial words survive verbatim &mdash; raw and unbroken.</p>
+        </div>
       </div>
 
       <div class="saint-card">
-        <span class="saint-symbol">&#x1F3F0;</span>
-        <h3>Teresa of Avila</h3>
-        <p class="saint-era">Spain, 1515&ndash;1582</p>
-        <p class="saint-voice">Practical, warm, mystical. She mapped the interior life with a reformer's energy.</p>
+        <div class="saint-card-img-wrap">
+          <span class="placeholder-icon">&#x1F3F0;</span>
+        </div>
+        <div class="saint-card-body">
+          <h3>Teresa of Avila</h3>
+          <p class="saint-era">Spain, 1515&ndash;1582</p>
+          <p class="saint-voice">Practical, warm, mystical. She mapped the interior life with a reformer's energy.</p>
+        </div>
       </div>
 
       <div class="saint-card">
-        <span class="saint-symbol">&#x1F319;</span>
-        <h3>John of the Cross</h3>
-        <p class="saint-era">Spain, 1542&ndash;1591</p>
-        <p class="saint-voice">Dark, luminous, poetic. The saint who found God in the night of the soul.</p>
+        <div class="saint-card-img-wrap">
+          <span class="placeholder-icon">&#x1F319;</span>
+        </div>
+        <div class="saint-card-body">
+          <h3>John of the Cross</h3>
+          <p class="saint-era">Spain, 1542&ndash;1591</p>
+          <p class="saint-voice">Dark, luminous, poetic. The saint who found God in the night of the soul.</p>
+        </div>
       </div>
 
       <div class="saint-card">
-        <span class="saint-symbol">&#x1F525;</span>
-        <h3>Catherine of Siena</h3>
-        <p class="saint-era">Italy, 1347&ndash;1380</p>
-        <p class="saint-voice">Fearless, political, tender. She wrote 400 letters and moved popes.</p>
+        <div class="saint-card-img-wrap">
+          <span class="placeholder-icon">&#x1F525;</span>
+        </div>
+        <div class="saint-card-body">
+          <h3>Catherine of Siena</h3>
+          <p class="saint-era">Italy, 1347&ndash;1380</p>
+          <p class="saint-voice">Fearless, political, tender. She wrote 400 letters and moved popes.</p>
+        </div>
       </div>
 
       <div class="saint-card">
-        <span class="saint-symbol">&#x1F4D6;</span>
-        <h3>Ignatius of Loyola</h3>
-        <p class="saint-era">Spain, 1491&ndash;1556</p>
-        <p class="saint-voice">Systematic, discerning, strategic. The soldier who built a method for finding God's will.</p>
+        <div class="saint-card-img-wrap">
+          <span class="placeholder-icon">&#x1F4D6;</span>
+        </div>
+        <div class="saint-card-body">
+          <h3>Ignatius of Loyola</h3>
+          <p class="saint-era">Spain, 1491&ndash;1556</p>
+          <p class="saint-voice">Systematic, discerning, strategic. The soldier who built a method for finding God's will.</p>
+        </div>
       </div>
 
       <div class="saint-card">
-        <span class="saint-symbol">&#x1F339;</span>
-        <h3>Francis de Sales</h3>
-        <p class="saint-era">France, 1567&ndash;1622</p>
-        <p class="saint-voice">Gentle, accessible, wise. He made holiness possible for ordinary people.</p>
+        <div class="saint-card-img-wrap">
+          <span class="placeholder-icon">&#x1F339;</span>
+        </div>
+        <div class="saint-card-body">
+          <h3>Francis de Sales</h3>
+          <p class="saint-era">France, 1567&ndash;1622</p>
+          <p class="saint-voice">Gentle, accessible, wise. He made holiness possible for ordinary people.</p>
+        </div>
       </div>
 
       <div class="saint-card">
-        <span class="saint-symbol">&#x1F33C;</span>
-        <h3>Th&eacute;r&egrave;se of Lisieux</h3>
-        <p class="saint-era">France, 1873&ndash;1897</p>
-        <p class="saint-voice">Simple, intimate, modern. The Little Flower who found greatness in small things.</p>
+        <div class="saint-card-img-wrap">
+          <span class="placeholder-icon">&#x1F33C;</span>
+        </div>
+        <div class="saint-card-body">
+          <h3>Th&eacute;r&egrave;se of Lisieux</h3>
+          <p class="saint-era">France, 1873&ndash;1897</p>
+          <p class="saint-voice">Simple, intimate, modern. The Little Flower who found greatness in small things.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -1043,26 +1176,47 @@
       <p class="demo-title">Council of Saints &mdash; On Doubt</p>
 
       <div class="demo-msg">
-        <p class="speaker">You</p>
-        <p class="text">I believe in God, but sometimes my faith feels thin. Like I'm going through the motions. Is that normal?</p>
+        <div class="demo-msg-avatar">
+          <span class="avatar-placeholder">You</span>
+        </div>
+        <div class="demo-msg-content">
+          <p class="speaker">You</p>
+          <p class="text">I believe in God, but sometimes my faith feels thin. Like I'm going through the motions. Is that normal?</p>
+        </div>
       </div>
 
       <div class="demo-msg" data-typewriter>
-        <p class="speaker saint-speaker">Augustine of Hippo</p>
-        <p class="text"><em>I know this place you describe. I lived there for years &mdash; drawn to the light yet tangled in my own will. Do not mistake dryness for distance. The very fact that you hunger is proof that something in you has tasted and now aches for more. "Late have I loved you, beauty so old and so new." You are not going through the motions. You are being drawn, even now.</em>
-        <span class="source-ref">&mdash; cf. Confessions, Book X</span></p>
+        <div class="demo-msg-avatar">
+          <!-- <img src="images/saints/augustine-avatar.png" alt="Augustine"> -->
+          <span class="avatar-placeholder">Aug</span>
+        </div>
+        <div class="demo-msg-content">
+          <p class="speaker saint-speaker">Augustine of Hippo</p>
+          <p class="text"><em>I know this place you describe. I lived there for years &mdash; drawn to the light yet tangled in my own will. Do not mistake dryness for distance. The very fact that you hunger is proof that something in you has tasted and now aches for more. "Late have I loved you, beauty so old and so new." You are not going through the motions. You are being drawn, even now.</em>
+          <span class="source-ref">&mdash; cf. Confessions, Book X</span></p>
+        </div>
       </div>
 
       <div class="demo-msg" data-typewriter>
-        <p class="speaker saint-speaker">Thomas Aquinas</p>
-        <p class="text"><em>We must distinguish between faith as intellectual assent and faith as lived experience. The first is a settled act of the will directed by grace. The second fluctuates with temperament, fatigue, and the trials God permits. That your feelings waver does not mean your faith has failed. Faith is not feeling. It is the will choosing what reason, illuminated by grace, presents as true.</em>
-        <span class="source-ref">&mdash; cf. Summa Theologica, II-II, Q.1-2</span></p>
+        <div class="demo-msg-avatar">
+          <span class="avatar-placeholder">Tho</span>
+        </div>
+        <div class="demo-msg-content">
+          <p class="speaker saint-speaker">Thomas Aquinas</p>
+          <p class="text"><em>We must distinguish between faith as intellectual assent and faith as lived experience. The first is a settled act of the will directed by grace. The second fluctuates with temperament, fatigue, and the trials God permits. That your feelings waver does not mean your faith has failed. Faith is not feeling. It is the will choosing what reason, illuminated by grace, presents as true.</em>
+          <span class="source-ref">&mdash; cf. Summa Theologica, II-II, Q.1-2</span></p>
+        </div>
       </div>
 
       <div class="demo-msg" data-typewriter>
-        <p class="speaker saint-speaker">Th&eacute;r&egrave;se of Lisieux</p>
-        <p class="text"><em>I will tell you something that may surprise you. In the last months of my life, my faith was not a comfort but a wall. I could see nothing beyond it. And yet I continued &mdash; small acts, small love, small trust. Not because I felt certain, but because I chose to walk into the fog. The Little Way is not for those with strong faith. It is for those whose faith is thin enough to need everything from God.</em>
-        <span class="source-ref">&mdash; cf. Story of a Soul, Chapter IX</span></p>
+        <div class="demo-msg-avatar">
+          <span class="avatar-placeholder">Th&eacute;</span>
+        </div>
+        <div class="demo-msg-content">
+          <p class="speaker saint-speaker">Th&eacute;r&egrave;se of Lisieux</p>
+          <p class="text"><em>I will tell you something that may surprise you. In the last months of my life, my faith was not a comfort but a wall. I could see nothing beyond it. And yet I continued &mdash; small acts, small love, small trust. Not because I felt certain, but because I chose to walk into the fog. The Little Way is not for those with strong faith. It is for those whose faith is thin enough to need everything from God.</em>
+          <span class="source-ref">&mdash; cf. Story of a Soul, Chapter IX</span></p>
+        </div>
       </div>
     </div>
   </section>
@@ -1096,27 +1250,21 @@
       <div class="lectio-panel" id="panel-meditatio">
         <h3>Meditate</h3>
         <p class="lectio-latin">Meditatio &mdash; Chew the word slowly</p>
-        <div class="lectio-scripture">
-          "Come to me, all you who are weary..."
-        </div>
+        <div class="lectio-scripture">"Come to me, all you who are weary..."</div>
         <p class="lectio-instruction">Take the word or phrase that stayed with you. Turn it over in your mind. Why this word? What does it touch in your life right now? The medieval monks called this "chewing" the text &mdash; extracting its nourishment slowly, letting it release its meaning.</p>
       </div>
 
       <div class="lectio-panel" id="panel-oratio">
         <h3>Pray</h3>
         <p class="lectio-latin">Oratio &mdash; Let the heart speak back to God</p>
-        <div class="lectio-scripture">
-          "...and I will give you rest."
-        </div>
+        <div class="lectio-scripture">"...and I will give you rest."</div>
         <p class="lectio-instruction">Now respond. Not with formulas, but with whatever arises naturally from the meditation. Gratitude, petition, confusion, desire, sorrow &mdash; all of it is prayer. Speak to God as one friend speaks to another, as Teresa of Avila taught.</p>
       </div>
 
       <div class="lectio-panel" id="panel-contemplatio">
         <h3>Rest</h3>
         <p class="lectio-latin">Contemplatio &mdash; Simply be in the Presence</p>
-        <div class="lectio-scripture">
-          "...for I am gentle and humble in heart."
-        </div>
+        <div class="lectio-scripture">"...for I am gentle and humble in heart."</div>
         <p class="lectio-instruction">Release the words. Release even the prayer. Simply rest in the presence of the One who spoke them. This is the deepest movement &mdash; beyond thought, beyond speech, into silence. As John of the Cross wrote: "Silence is God's first language."</p>
         <div class="silence-container">
           <button class="silence-btn" id="silence-start">Enter Silence &mdash; 2 Minutes</button>
@@ -1183,7 +1331,7 @@
   </section>
 
   <!-- ==================== CTA ==================== -->
-  <div class="cta-section fade-in">
+  <div class="cta-section fade-in" id="cta">
     <h2>Be Among the First</h2>
     <p>Sancti Loquuntur is being built. Leave your address to be notified when the saints begin to speak.</p>
     <form class="email-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Deo Gratias'; this.querySelector('input').disabled=true;">
@@ -1203,17 +1351,13 @@
 
   <!-- ==================== SCRIPTS ==================== -->
   <script>
-    // ---- Scroll fade-in observer ----
+    // Scroll fade-in
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
     }, { threshold: 0.15 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    // ---- Vigils (dark) mode ----
+    // Vigils mode
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
 
@@ -1229,21 +1373,15 @@
       setTheme(current === 'vigils' ? '' : 'vigils');
     });
 
-    // Restore saved theme
     const saved = localStorage.getItem('sl-theme');
     if (saved) setTheme(saved);
 
-    // ---- Candlelight effect (canvas) ----
+    // Candlelight
     const canvas = document.getElementById('candlelight');
     const ctx = canvas.getContext('2d');
     let candles = [];
-    let animFrame;
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     function initCandles() {
       candles = [];
       const count = Math.floor(window.innerWidth / 300) + 2;
@@ -1260,36 +1398,25 @@
 
     function drawCandles(t) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       for (const c of candles) {
-        const flicker = Math.sin(t * c.speed * 0.001 + c.phase) * 0.15
-          + Math.sin(t * c.speed * 0.0023 + c.phase * 2) * 0.1;
+        const flicker = Math.sin(t * c.speed * 0.001 + c.phase) * 0.15 + Math.sin(t * c.speed * 0.0023 + c.phase * 2) * 0.1;
         const r = c.baseRadius * (1 + flicker);
-
         const grad = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, r);
         grad.addColorStop(0, 'rgba(201, 148, 56, 0.06)');
         grad.addColorStop(0.4, 'rgba(180, 120, 40, 0.03)');
         grad.addColorStop(1, 'rgba(180, 120, 40, 0)');
-
         ctx.fillStyle = grad;
         ctx.beginPath();
         ctx.arc(c.x, c.y, r, 0, Math.PI * 2);
         ctx.fill();
       }
-
-      animFrame = requestAnimationFrame(drawCandles);
+      requestAnimationFrame(drawCandles);
     }
 
-    resizeCanvas();
-    initCandles();
-    drawCandles(0);
+    resizeCanvas(); initCandles(); drawCandles(0);
+    window.addEventListener('resize', () => { resizeCanvas(); initCandles(); });
 
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      initCandles();
-    });
-
-    // ---- Lectio Divina tabs ----
+    // Lectio Divina tabs
     document.querySelectorAll('.lectio-step-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.lectio-step-btn').forEach(b => b.classList.remove('active'));
@@ -1299,37 +1426,33 @@
       });
     });
 
-    // ---- Silence timer ----
+    // Silence timer
     const silenceBtn = document.getElementById('silence-start');
     const silenceTimer = document.getElementById('silence-timer');
     let silenceInterval = null;
 
     silenceBtn.addEventListener('click', () => {
       if (silenceInterval) {
-        clearInterval(silenceInterval);
-        silenceInterval = null;
+        clearInterval(silenceInterval); silenceInterval = null;
         silenceTimer.classList.remove('active');
         silenceBtn.textContent = 'Enter Silence \u2014 2 Minutes';
         return;
       }
-
       let remaining = 120;
       silenceTimer.classList.add('active');
       silenceBtn.textContent = 'End Silence';
 
-      function updateTimer() {
+      function tick() {
         const m = Math.floor(remaining / 60);
         const s = remaining % 60;
         silenceTimer.textContent = m + ':' + String(s).padStart(2, '0');
       }
-
-      updateTimer();
+      tick();
       silenceInterval = setInterval(() => {
         remaining--;
-        updateTimer();
+        tick();
         if (remaining <= 0) {
-          clearInterval(silenceInterval);
-          silenceInterval = null;
+          clearInterval(silenceInterval); silenceInterval = null;
           silenceTimer.textContent = 'Amen.';
           setTimeout(() => {
             silenceTimer.classList.remove('active');
@@ -1339,44 +1462,27 @@
       }, 1000);
     });
 
-    // ---- Typewriter effect on demo messages ----
+    // Typewriter on demo messages
     const demoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
           entry.target.dataset.animated = 'true';
           const textEl = entry.target.querySelector('.text em');
           if (!textEl) return;
-
-          const originalHTML = textEl.innerHTML;
           const sourceRef = entry.target.querySelector('.source-ref');
           if (sourceRef) sourceRef.style.opacity = '0';
-
           const text = textEl.textContent;
           textEl.textContent = '';
-          textEl.style.opacity = '1';
-
           let i = 0;
-          const speed = 12;
           function type() {
-            if (i < text.length) {
-              textEl.textContent += text.charAt(i);
-              i++;
-              setTimeout(type, speed);
-            } else {
-              if (sourceRef) {
-                sourceRef.style.opacity = '1';
-                sourceRef.style.transition = 'opacity 0.5s ease';
-              }
-            }
+            if (i < text.length) { textEl.textContent += text.charAt(i); i++; setTimeout(type, 12); }
+            else if (sourceRef) { sourceRef.style.opacity = '1'; sourceRef.style.transition = 'opacity 0.5s ease'; }
           }
-
-          // Stagger based on position
           const idx = Array.from(document.querySelectorAll('[data-typewriter]')).indexOf(entry.target);
           setTimeout(type, idx * 800);
         }
       });
     }, { threshold: 0.3 });
-
     document.querySelectorAll('[data-typewriter]').forEach(el => demoObserver.observe(el));
   </script>
 
