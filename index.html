@@ -133,7 +133,17 @@
       width: 100%; height: 100%;
       z-index: 0;
       background: url('images/fresco-bg.png') center/cover;
-      opacity: 0.35;
+      opacity: 0.18;
+    }
+
+    /* Gradient overlay: readable text left, fresco blends into saint right */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 55%; height: 100%;
+      z-index: 1;
+      background: linear-gradient(90deg, var(--parchment) 40%, transparent 100%);
     }
 
     .hero::before {
@@ -142,12 +152,12 @@
       top: 0; left: 0; right: 0;
       height: 4px;
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      z-index: 2;
+      z-index: 3;
     }
 
     .hero-text {
       position: relative;
-      z-index: 2;
+      z-index: 3;
       padding: 4rem 3rem 4rem 8vw;
       max-width: 650px;
     }
@@ -242,30 +252,26 @@
       position: relative;
       z-index: 2;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: center;
       height: 100%;
-      padding-top: 4rem;
+      padding: 2rem 2rem 0 0;
     }
 
     .hero-saint-img {
-      max-height: 85vh;
+      max-height: 90vh;
       width: auto;
       max-width: 100%;
       object-fit: contain;
       object-position: bottom center;
-      filter: drop-shadow(0 8px 40px rgba(44, 24, 16, 0.15));
-      /* Fade out at the bottom edge */
-      mask-image: linear-gradient(to bottom, black 75%, transparent 98%);
-      -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 98%);
-    }
-
-    /* Placeholder SVG silhouette until real images are added */
-    .hero-saint-placeholder {
-      width: 100%;
-      max-width: 420px;
-      height: auto;
-      opacity: 0.12;
+      /* Multi-edge fade: soft blend into the background from all sides */
+      mask-image:
+        linear-gradient(to bottom, black 65%, transparent 95%),
+        linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%),
+        linear-gradient(to top, transparent 0%, black 8%);
+      mask-composite: intersect;
+      -webkit-mask-image:
+        linear-gradient(to bottom, transparent 0%, black 8%, black 65%, transparent 95%);
     }
 
     .hero-scroll {
@@ -278,7 +284,7 @@
       letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--stone-light);
-      z-index: 2;
+      z-index: 3;
       animation: gentle-pulse 3s ease-in-out infinite;
     }
 
