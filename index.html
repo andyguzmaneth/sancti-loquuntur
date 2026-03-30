@@ -132,15 +132,8 @@
       top: 0; left: 0;
       width: 100%; height: 100%;
       z-index: 0;
-      /* CSS-only baroque fresco suggestion: warm radials mimicking a painted ceiling */
-      background:
-        radial-gradient(ellipse at 20% 20%, rgba(162, 89, 61, 0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 30%, rgba(120, 80, 120, 0.06) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 80%, rgba(184, 134, 11, 0.06) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 0%, var(--gold-glow) 0%, transparent 40%),
-        linear-gradient(180deg, var(--parchment) 0%, var(--parchment-dark) 100%);
-      /* REPLACE with actual fresco image when available:
-         background: url('images/fresco-bg.jpg') center/cover; */
+      background: url('images/fresco-bg.png') center/cover;
+      opacity: 0.35;
     }
 
     .hero::before {
@@ -942,29 +935,7 @@
     </div>
 
     <div class="hero-saint">
-      <!-- REPLACE: Drop your Midjourney-generated Augustine image here -->
-      <!-- <img src="images/augustine-hero.png" alt="Saint Augustine of Hippo" class="hero-saint-img"> -->
-
-      <!-- Placeholder SVG silhouette -->
-      <svg class="hero-saint-placeholder" viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="robeGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="var(--burgundy)" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="var(--gold)" stop-opacity="0.1"/>
-          </linearGradient>
-        </defs>
-        <!-- Head -->
-        <ellipse cx="200" cy="100" rx="55" ry="65" fill="var(--ink)" opacity="0.06"/>
-        <!-- Halo -->
-        <ellipse cx="200" cy="75" rx="72" ry="72" fill="none" stroke="var(--gold)" stroke-width="2" opacity="0.2"/>
-        <!-- Body / Robe -->
-        <path d="M120,170 Q140,160 200,155 Q260,160 280,170 L310,580 Q260,600 200,600 Q140,600 90,580 Z" fill="url(#robeGrad)"/>
-        <!-- Book -->
-        <rect x="140" y="260" width="100" height="75" rx="4" fill="var(--gold)" opacity="0.12" transform="rotate(-8, 190, 297)"/>
-        <!-- Arms suggestion -->
-        <path d="M130,200 Q120,260 140,300" stroke="var(--ink)" stroke-width="3" fill="none" opacity="0.06"/>
-        <path d="M270,200 Q280,260 260,300" stroke="var(--ink)" stroke-width="3" fill="none" opacity="0.06"/>
-      </svg>
+      <img src="images/augustine-hero.webp" alt="Saint Augustine of Hippo" class="hero-saint-img">
     </div>
 
     <span class="hero-scroll">Descend</span>
@@ -1129,7 +1100,7 @@
 
       <div class="saint-card">
         <div class="saint-card-img-wrap">
-          <span class="placeholder-icon">&#x1F339;</span>
+          <img src="images/saints/francis-sales.png" alt="Francis de Sales">
         </div>
         <div class="saint-card-body">
           <h3>Francis de Sales</h3>
@@ -1140,7 +1111,7 @@
 
       <div class="saint-card">
         <div class="saint-card-img-wrap">
-          <span class="placeholder-icon">&#x1F33C;</span>
+          <img src="images/saints/therese.jpg" alt="Therese of Lisieux">
         </div>
         <div class="saint-card-body">
           <h3>Th&eacute;r&egrave;se of Lisieux</h3>
